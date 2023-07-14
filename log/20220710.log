@@ -1,0 +1,10 @@
+2022/07/10 22:01:31 c:\Users\lt\Desktop\program\src\list\operateList.py 28line[INFO]: Print list: [1, 2, 3, 4]
+2022/07/10 22:01:31 c:\Users\lt\Desktop\program\src\list\operateList.py 50line[DEBUG]: enter Revese list(recursion)!!!
+2022/07/10 22:01:31 c:\Users\lt\Desktop\program\src\list\operateList.py 50line[DEBUG]: enter Revese list(recursion)!!!
+2022/07/10 22:01:31 c:\Users\lt\Desktop\program\src\list\operateList.py 50line[DEBUG]: enter Revese list(recursion)!!!
+2022/07/10 22:01:31 c:\Users\lt\Desktop\program\src\list\operateList.py 50line[DEBUG]: enter Revese list(recursion)!!!
+2022/07/10 22:01:31 c:\Users\lt\Desktop\program\src\list\operateList.py 52line[ERROR]: List is None !!!
+2022/07/10 22:01:31 c:\Users\lt\Desktop\program\src\list\operateList.py 28line[INFO]: Print list: [4, 3, 2, 1]
+2022/07/10 22:36:58 c:\Users\lt\Desktop\program\src\list\operateList.py 23line[INFO]: Create list success !!!
+2022/07/10 22:36:58 c:\Users\lt\Desktop\program\src\list\operateList.py 38line[INFO]: Print list: [1, 2, 3, 4]
+2022/07/10 22:36:58 c:\Users\lt\Desktop\program\src\list\operateList.py 38line[INFO]: Print list: [4, 3, 2, 1]
