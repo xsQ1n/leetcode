@@ -33,9 +33,9 @@ class OperateList(object):
         """
         if (head == None):
             self.logger.error("List is None !!!")
-            return head.val   
+            return head.val
 
-        list_var = [] 
+        list_var = []
         while head:
             list_var.append(head.val)
             head = head.next
@@ -47,9 +47,9 @@ class OperateList(object):
         """
         # if (head == None):
         #     self.logger.error("List is None !!!")
-        #     return head 
+        #     return head
         re_list = None
-        while head:           
+        while head:
             tmp = head.next
             head.next = re_list
             re_list = head
@@ -142,7 +142,7 @@ class OperateList(object):
 
     def cycle_list(self, head:ListNode) -> ListNode:
         """
-        find the entry to cycle list 
+        find the entry to cycle list
         """
         fast, slow = head, head
         while fast != None and fast.next != None:
@@ -153,3 +153,192 @@ class OperateList(object):
                     fast, slow = fast.next, slow.next
                 return fast
         return None
+
+
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        """
+            合并 K 个升序链表
+        """
+        ## 方法1：逐一合并
+        def mergeList(l1: ListNode, l2: ListNode) -> ListNode:
+            tmp = cur_head = ListNode(-1)
+
+            while l1 and l2:
+                if l1.val < l2.val:
+                    tmp.next = l1
+                    l1 = l1.next
+                else:
+                    tmp.next = l2
+                    l2 = l2.next
+                tmp = tmp.next
+
+            tmp.next = l1 if l1 else l2
+            return cur_head.next
+
+        cur_head = ListNode(-1)
+        for head in lists:
+            if head is None:
+                continue
+
+            tmp = cur_head.next
+            cur_head.next = mergeList(head, tmp)
+
+        return cur_head.next
+
+        ## 方法2：优先队列
+        # if not lists:
+        #     return None
+
+        # # 使用优先队列（最小堆）来维护当前所有链表的头部节点
+        # import heapq
+        # dummy = ListNode(-1)
+        # current = dummy
+
+        # # 构建最小堆
+        # heap = []
+        # for i, lst in enumerate(lists):
+        #     if lst:
+        #         heapq.heappush(heap, (lst.val, i, lst))
+
+        # # 合并链表
+        # while heap:
+        #     _, i, node = heapq.heappop(heap)
+        #     current.next = node
+        #     current = current.next
+        #     if node.next:
+        #         heapq.heappush(heap, (node.next.val, i, node.next))
+
+        # return dummy.next
+
+
+    def find_end_k_node(self, head:ListNode, k:int):
+        """
+        返回链表的倒数第 k 个节点
+        """
+        fast, slow = head, head
+        for i in range(k):
+            fast = fast.next
+
+        while slow:
+            fast, slow = fast.next, slow.next
+        return fast
+
+
+    def removeNthFromEnd(self, head:ListNode, n:int):
+        """
+        删除链表的倒数第 N 个结点
+        """
+        # 特殊情况当n = 链表长度时，寻找倒数n+1个节点时，会出现溢出，因此头部在添加一个节点，防止溢出
+        cur_head = ListNode(-1, head)
+        fast, slow = head, cur_head
+
+        for i in range(n):
+            fast = fast.next
+
+        while fast:
+            fast = fast.next
+            slow = slow.next
+
+        slow.next = slow.next.next
+
+        return cur_head.next
+
+
+    def middleNode(self, head: ListNode) -> ListNode:
+        """
+        单链表的中点
+        """
+        slow, fast = head, head
+
+        while fast and fast.next:
+            slow  = slow.next
+            fast = fast.next.next
+        return slow
+
+
+    def hasCycle(self, head: ListNode) -> bool:
+        slow, fast = head, head
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+            if slow == fast:
+                return True
+
+        return False
+
+
+    def detectCycle(self, head: ListNode) -> ListNode:
+        # ## 方法1：使用set实现
+        # tmp = head
+        # visited = set()
+        # while tmp:
+        #     if tmp in visited:
+        #         return tmp
+
+        #     visited.add(tmp)
+        #     tmp = tmp.next
+        # return None
+
+        ## 方法2：快慢指针
+        slow, fast = head, head
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+            if slow == fast:
+                break
+
+        if not fast or not fast.next:
+            return None
+
+        slow = head
+        while slow != fast:
+            slow = slow.next
+            fast = fast.next
+        return slow
+
+
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+        """
+        两个链表是否相交
+        """
+        l1, l2 = headA, headB
+
+        while l1 != l2:
+            l1 = l1.next if l1 else headB
+            l2 = l2.next if l2 else headA
+        return l1
+
+
+    def deleteDuplicates(self, head: ListNode) -> ListNode:
+        """
+        删除链表中重复的元素
+        """
+        if not head:
+            return None
+
+        slow, fast = head, head.next
+        while fast:
+            if slow.val == fast.val:
+                slow.next = fast
+                slow = slow.next
+            fast = fast.next
+        slow.next = None
+        return head
+
+
+    def removeElement(self, nums: List[int], val: int) -> int:
+        """
+        移除值为 val 的元素
+        """
+        slow, fast = 0, 0
+        while fast < len(nums):
+            if nums[fast] != val:
+                nums[slow] = nums[fast]
+                slow += 1
+            fast += 1
+
+        return slow
+
+
